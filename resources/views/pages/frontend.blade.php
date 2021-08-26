@@ -72,109 +72,109 @@
 
                     <!-- Sidebar
                     ============================================= -->
-                    <div class="sidebar col-lg-3">
-                        <div class="sidebar-widgets-wrap">
+{{--                    <div class="sidebar col-lg-3">--}}
+{{--                        <div class="sidebar-widgets-wrap">--}}
 
-                            <div class="widget clearfix">
-                                <div class="toggle mb-0 clearfix">
-                                    <div class="toggle-header">
-                                        <div class="toggle-icon">
-                                            <button class="button button-rounded btn-block m-0">
-                                                <i class="toggle-closed icon-caret-right"></i>
-                                                <i class="toggle-open icon-caret-down"></i>Modify Search Result
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="toggle-content pl-0 mt-15">
-                                        <form class="row mb-0">
-                                            <div class="form-process">
-                                                <div class="css3-spinner">
-                                                    <div class="css3-spinner-scaler"></div>
-                                                </div>
-                                            </div>
+{{--                            <div class="widget clearfix">--}}
+{{--                                <div class="toggle mb-0 clearfix">--}}
+{{--                                    <div class="toggle-header">--}}
+{{--                                        <div class="toggle-icon">--}}
+{{--                                            <button class="button button-rounded btn-block m-0">--}}
+{{--                                                <i class="toggle-closed icon-caret-right"></i>--}}
+{{--                                                <i class="toggle-open icon-caret-down"></i>Modify Search Result--}}
+{{--                                            </button>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="toggle-content pl-0 mt-15">--}}
+{{--                                        <form class="row mb-0">--}}
+{{--                                            <div class="form-process">--}}
+{{--                                                <div class="css3-spinner">--}}
+{{--                                                    <div class="css3-spinner-scaler"></div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
 
-                                            <div class="col-12 form-group">
-                                                <label for="template-contactform-location">Location <small>*</small></label>
-                                                <input type="text" id="template-contactform-location" name="template-contactform-location" value="" class="sm-form-control required" placeholder="Spain" />
-                                            </div>
+{{--                                            <div class="col-12 form-group">--}}
+{{--                                                <label for="template-contactform-location">Location <small>*</small></label>--}}
+{{--                                                <input type="text" id="template-contactform-location" name="template-contactform-location" value="" class="sm-form-control required" placeholder="Spain" />--}}
+{{--                                            </div>--}}
 
-                                            <div class="col-12">
-                                                <div class="input-daterange travel-date-group row mb-0">
-                                                    <div class="col-12 form-group">
-                                                        <label for="">Departure</label>
-                                                        <input type="text" value="" class="sm-form-control text-left" name="start" placeholder="mm/dd/yyyy">
-                                                    </div>
+{{--                                            <div class="col-12">--}}
+{{--                                                <div class="input-daterange travel-date-group row mb-0">--}}
+{{--                                                    <div class="col-12 form-group">--}}
+{{--                                                        <label for="">Departure</label>--}}
+{{--                                                        <input type="text" value="" class="sm-form-control text-left" name="start" placeholder="mm/dd/yyyy">--}}
+{{--                                                    </div>--}}
 
-                                                    <div class="col-12 form-group">
-                                                        <label for="">Arrival</label>
-                                                        <input type="text" value="" class="sm-form-control text-left" name="end" placeholder="mm/dd/yyyy">
-                                                    </div>
-                                                </div>
-                                            </div>
+{{--                                                    <div class="col-12 form-group">--}}
+{{--                                                        <label for="">Arrival</label>--}}
+{{--                                                        <input type="text" value="" class="sm-form-control text-left" name="end" placeholder="mm/dd/yyyy">--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
 
-                                            <div class="col-md-6 form-group">
-                                                <label for="template-contactform-adults">Adults</label>
-                                                <select id="template-contactform-adults" name="template-contactform-adults" class="sm-form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </div>
+{{--                                            <div class="col-md-6 form-group">--}}
+{{--                                                <label for="template-contactform-adults">Adults</label>--}}
+{{--                                                <select id="template-contactform-adults" name="template-contactform-adults" class="sm-form-control">--}}
+{{--                                                    <option value="1">1</option>--}}
+{{--                                                    <option value="2">2</option>--}}
+{{--                                                    <option value="3">3</option>--}}
+{{--                                                    <option value="4">4</option>--}}
+{{--                                                </select>--}}
+{{--                                            </div>--}}
 
-                                            <div class="col-md-6 form-group">
-                                                <label for="template-contactform-children">Childrens</label>
-                                                <select id="template-contactform-children" name="template-contactform-children" class="sm-form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </div>
+{{--                                            <div class="col-md-6 form-group">--}}
+{{--                                                <label for="template-contactform-children">Childrens</label>--}}
+{{--                                                <select id="template-contactform-children" name="template-contactform-children" class="sm-form-control">--}}
+{{--                                                    <option value="1">1</option>--}}
+{{--                                                    <option value="2">2</option>--}}
+{{--                                                    <option value="3">3</option>--}}
+{{--                                                    <option value="4">4</option>--}}
+{{--                                                </select>--}}
+{{--                                            </div>--}}
 
 
-                                            <div class="col-md-12 form-gorup">
-                                                <div class="widget clearfix">
+{{--                                            <div class="col-md-12 form-gorup">--}}
+{{--                                                <div class="widget clearfix">--}}
 
-                                                    <h4>Price</h4>
+{{--                                                    <h4>Price</h4>--}}
 
-                                                    <div>
-                                                        <input id="checkbox-1" class="checkbox-style" name="checkbox" type="checkbox">
-                                                        <label for="checkbox-1" class="checkbox-style-2-label checkbox-small">$0 - $49</label>
-                                                    </div>
-                                                    <div>
-                                                        <input id="checkbox-2" class="checkbox-style" name="checkbox" type="checkbox">
-                                                        <label for="checkbox-2" class="checkbox-style-2-label checkbox-small">$49 - $99</label>
-                                                    </div>
-                                                    <div>
-                                                        <input id="checkbox-3" class="checkbox-style" name="checkbox" type="checkbox">
-                                                        <label for="checkbox-3" class="checkbox-style-2-label checkbox-small">$99 - $129</label>
-                                                    </div>
-                                                    <div>
-                                                        <input id="checkbox-4" class="checkbox-style" name="checkbox" type="checkbox">
-                                                        <label for="checkbox-4" class="checkbox-style-2-label checkbox-small">$129 - $199</label>
-                                                    </div>
+{{--                                                    <div>--}}
+{{--                                                        <input id="checkbox-1" class="checkbox-style" name="checkbox" type="checkbox">--}}
+{{--                                                        <label for="checkbox-1" class="checkbox-style-2-label checkbox-small">$0 - $49</label>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div>--}}
+{{--                                                        <input id="checkbox-2" class="checkbox-style" name="checkbox" type="checkbox">--}}
+{{--                                                        <label for="checkbox-2" class="checkbox-style-2-label checkbox-small">$49 - $99</label>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div>--}}
+{{--                                                        <input id="checkbox-3" class="checkbox-style" name="checkbox" type="checkbox">--}}
+{{--                                                        <label for="checkbox-3" class="checkbox-style-2-label checkbox-small">$99 - $129</label>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div>--}}
+{{--                                                        <input id="checkbox-4" class="checkbox-style" name="checkbox" type="checkbox">--}}
+{{--                                                        <label for="checkbox-4" class="checkbox-style-2-label checkbox-small">$129 - $199</label>--}}
+{{--                                                    </div>--}}
 
-                                                </div>
+{{--                                                </div>--}}
 
-                                            </div>
+{{--                                            </div>--}}
 
-                                            <div class="w-100"></div>
+{{--                                            <div class="w-100"></div>--}}
 
-                                            <div class="col-12 form-group d-none">
-                                                <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
-                                            </div>
+{{--                                            <div class="col-12 form-group d-none">--}}
+{{--                                                <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />--}}
+{{--                                            </div>--}}
 
-                                            <div class="col-12 form-group mb-0">
-                                                <a href="#" class="button button-3d m-0">Search</a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+{{--                                            <div class="col-12 form-group mb-0">--}}
+{{--                                                <a href="#" class="button button-3d m-0">Search</a>--}}
+{{--                                            </div>--}}
+{{--                                        </form>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                    </div>
+{{--                    </div>--}}
                 </div>
 
             </div>
