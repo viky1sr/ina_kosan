@@ -4,8 +4,8 @@
     <section id="page-title" class="page-title-center page-title-parallax page-title-dark include-header include-topbar" style="background-image: url('demos/travel/images/hotels/page-title.jpg'); background-position: center center; padding: 100px 0;" data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px -200px;">
 
         <div class="container clearfix">
-            <h1>{{count($kosans)}} Kos Kosan</h1>
-            <span><i class="icon-map-marker"></i>Indonesia</span>
+            <h1>Rumah Kos Daerah Sepakat 2</h1>
+            <span><i class="icon-map-marker"></i>Pontianak Tenggara, Kota Pontianak</span>
         </div>
 
     </section>
