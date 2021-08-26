@@ -19,7 +19,8 @@ class RoomKosan extends Model
         'type',
         'price',
         'location',
-        'description'
+        'description',
+        'map'
     ];
 
     public function file() {

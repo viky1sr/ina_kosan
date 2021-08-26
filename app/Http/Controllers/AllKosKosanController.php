@@ -94,6 +94,7 @@ class AllKosKosanController extends Controller
             'price' => 'required',
             'location' => 'required',
             'description' => 'required',
+            'map' => 'required',
             'file_kosan' => 'required|mimes:jpg,jpeg,png,jfif|max:25000'
         ]);
 
@@ -110,7 +111,8 @@ class AllKosKosanController extends Controller
             'type' => $req['type'],
             'price' => str_replace($search,"",$req['price']),
             'location' => $req['location'],
-            'description' => $req['description']
+            'description' => $req['description'],
+            'map' => $req['map']
         ];
         $success = RoomKosan::firstOrCreate($input);
 

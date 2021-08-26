@@ -84,7 +84,15 @@
                                     <div class="col-md-12">
                                         <div class="form-group fill">
                                             <label for="inputAddress">Description</label>
-                                            <input type="text" class="form-control" name=" description" placeholder="">
+                                            <input type="text" class="form-control" name="description" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group fill">
+                                            <label for="inputAddress">Map Link Embed</label>
+                                            <input type="text" class="form-control" name="map" placeholder="">
                                         </div>
                                     </div>
                                 </div>

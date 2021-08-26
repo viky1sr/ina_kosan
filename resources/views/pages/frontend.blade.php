@@ -33,7 +33,10 @@
                                             </div>
                                             <div class="entry-meta">
                                                 <ul>
-                                                    <li><i class="icon-line-map"></i>{{$item->location}}</li>
+                                                    <li><i class="icon-line-map"></i>
+                                                        <a href="{{$item->map}}" data-lightbox="iframe">
+                                                        {{$item->location}}</li>
+                                                        </a>
                                                 </ul>
                                             </div>
                                             <div class="entry-content">
