@@ -33,6 +33,9 @@
             <li class="nav-item">
                 <a href="{{route('home')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
             </li>
+            <li class="nav-item">
+                <a href="{{url('/')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-share"></i></span><span class="pcoded-mtext">Home</span></a>
+            </li>
             @role('visitor')
             <li class="nav-item">
                 <a href="{{route('visitor.visitor-create',Auth::user()->id)}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user-check"></i></span><span class="pcoded-mtext">Activation Member</span></a>
