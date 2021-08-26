@@ -31,19 +31,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form id="koskosanForm" method="post" action="{{empty($id) ? route('kos-kosan.store') : route('futsal.update',$id)}}" enctype="multipart/form-data" >
+                            <form id="koskosanForm" method="post" action="{{empty($id) ? route('kos-kosan.store') : route('kos-kosan.update',$id)}}" enctype="multipart/form-data" >
                                 {{ csrf_field() }} {{ method_field('POST') }}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group fill">
                                             <label for="exampleInputEmail1">Name</label>
-                                            <input type="text" class="form-control" name="name"  placeholder="Enter Name">
+                                            <input type="text" class="form-control" name="name"  value="{{$data->name ?? null}}" placeholder="Enter Name">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group fill">
                                             <label for="exampleInputEmail1">Price</label>
-                                            <input type="text" class="form-control idr" name="price" placeholder="Enter Price">
+                                            <input type="text" class="form-control idr" name="price" value="{{$data->price ?? null}}" placeholder="Enter Price">
                                         </div>
                                     </div>
                                 </div>
@@ -51,13 +51,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group fill">
                                             <label for="exampleInputEmail1">Fasilitas</label>
-                                            <input type="text" class="form-control" name="fasilitas_name"  placeholder="AC, TV, WIFI">
+                                            <input type="text" class="form-control" name="fasilitas_name" value="{{$data->fasilitas['fasilitas_name'] ?? null}}"  placeholder="AC, TV, WIFI">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group fill">
                                             <label for="exampleInputEmail1">Lokasi</label>
-                                            <input type="text" class="form-control" name="location"  placeholder="Pontianak">
+                                            <input type="text" class="form-control" name="location" value="{{$data->location ?? null}}"  placeholder="Pontianak">
                                         </div>
                                     </div>
                                 </div>
@@ -72,10 +72,17 @@
                                         <div class="form-group fill">
                                             <label for="exampleInputEmail1">Type</label>
                                             <select name="type" class="js-example-placeholder-type col-sm-12">
-                                                <option value="">---</option>
-                                                <option value="1">Campur</option>
-                                                <option value="2">Laki-Laki</option>
-                                                <option value="3">Perempuan</option>
+                                                @if(!empty($data->is_type))
+                                                    <option value="">---</option>
+                                                    <option value="1" {{ $data->is_type['id'] == 1 ? "selected" : null}}>Campur</option>
+                                                    <option value="3" {{ $data->is_type['id'] == 3 ? "selected" : null}}>Perempuan</option>
+                                                    <option value="2" {{ $data->is_type['id'] == 2 ? "selected" : null}}>Laki-Laki</option>
+                                                @else
+                                                    <option value="">---</option>
+                                                    <option value="1" >Campur</option>
+                                                    <option value="3" >Perempuan</option>
+                                                    <option value="2" >Laki-Laki</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -84,7 +91,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group fill">
                                             <label for="inputAddress">Description</label>
-                                            <input type="text" class="form-control" name="description" placeholder="">
+                                            <input type="text" class="form-control" name="description" value="{{$data->description ?? null}}" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +99,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group fill">
                                             <label for="inputAddress">Map Link Embed</label>
-                                            <input type="text" class="form-control" name="map" placeholder="">
+                                            <input type="text" class="form-control" name="map" value="{{$data->map ?? null}}" placeholder="">
                                         </div>
                                     </div>
                                 </div>

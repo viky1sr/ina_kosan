@@ -169,7 +169,15 @@ class AllKosKosanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $array = [
+            'title' => 'Update',
+            'title_header' => 'Kos Kosan',
+            'data' => RoomKosan::with('fasilitas','is_type')->find($id),
+        ];
+
+//        dd($array['data']);
+
+        return view('pages.kos_kosan.create_or_update',$array);
     }
 
     /**
@@ -181,7 +189,67 @@ class AllKosKosanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $req = $request->all();
+
+        $validator = Validator::make($req,[
+            'name' => 'required',
+            'type' => 'required',
+            'price' => 'required',
+            'location' => 'required',
+            'description' => 'required',
+            'map' => 'required',
+            'file_kosan' => 'sometimes|mimes:jpg,jpeg,png,jfif|max:25000'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'status' => 'fail',
+                'messages' => $validator->errors()->first()
+            ],422);
+        }
+
+        $search = ['Rp','.',' '];
+        $input = [
+            'name' => $req['name'],
+            'type' => $req['type'],
+            'price' => str_replace($search,"",$req['price']),
+            'location' => $req['location'],
+            'description' => $req['description'],
+            'map' => $req['map']
+        ];
+        $success = RoomKosan::find($id);
+        $success->update($input);
+
+        if($success) {
+            $fasilitasInput = [
+                'fasilitas_name' => $req['fasilitas_name'],
+            ];
+            FasilitasRoom::where('id_room_kosans', $id)->update($fasilitasInput);
+
+            if ($request->hasFile('file_kosan')) {
+                $file = $request->file('file_kosan');
+                $file = $this->uploadFileKosan($file);
+
+                $product_input = [
+                    'file_kosan' => $file->getFileInfo()->getFilename()
+                ];
+                FileKosan::where('id_room_kosans',$id)->update($product_input);
+            }
+
+            if($success->type == 1) {
+                $route = route('kos-kosan.campur-index');
+            }elseif ($success->type == 2) {
+                $route = route('kos-kosan.pria-index');
+            } elseif ($success->type == 3) {
+                $route = route('kos-kosan.wanita-index');
+            }
+
+            return response()->json([
+                'status' => 'ok',
+                'messages' => 'Success Update Kosan Kosan.',
+                'route' => $route
+            ],200);
+        }
     }
 
     /**

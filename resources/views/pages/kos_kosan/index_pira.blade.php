@@ -122,9 +122,10 @@
                             '                </div>'
                         }
                     },
-                    @if(Auth::user()->status == 1)
+                        @if(Auth::user()->status == 1)
                     {data: 'id', name: 'id' , searchable: false , orderable: false ,render : function(data, type , row) {
-                            return '<a href="{{url('kos-kosan/pay-now')}}/'+row.id+'" title="pay" > <button ><i class="fas mr-2 fa-money-bill-wave text-info"></i> Pay Now</button> </a>'
+                            return '<a href="{{url('kos-kosan/pay-now')}}/'+row.id+'" title="pay" > <button ><i class="fas mr-2 fa-money-bill-wave text-info"></i> Pay Now</button> </a>' +
+                                '<a href="{{url('kos-kosan/edit')}}/'+row.id+'" title="update" > <button ><i class="fas mr-2 fa-pencil text-info"></i>Edit</button> </a>'
                         }
                     }
                     @endif
