@@ -208,6 +208,14 @@ class AllKosKosanController extends Controller
     public function payNowStore(Request $request, $id){
         $req = $request->all();
         $virtual = VirtualAccount::where('id_users',Auth::user()->id)->first();
+        $kosan = RoomKosan::find($id)->first();
+
+        if($virtual->saldo < $kosan->price) {
+            return response()->json([
+                'status' => 'fail',
+                'messages' => 'Saldo anda tidak mencukupin silakan isi saldo anda.'
+            ],422);
+        }
 
         if($virtual->code_pin != $req['code_pin']) {
             return response()->json([
