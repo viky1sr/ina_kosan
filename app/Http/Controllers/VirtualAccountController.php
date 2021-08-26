@@ -61,7 +61,7 @@ class VirtualAccountController extends Controller
         $array = [
             'data' => VirtualAccount::with('user')->find($id),
             'title' => 'My Virtual Account',
-            'logs' => LogPembayaran::where('id_users',$id)->get(),
+            'logs' => LogPembayaran::where('id_users',Auth::user()->id)->get(),
             'log_all' => LogPembayaran::all(),
         ];
 //        dd($array['log_all']);
