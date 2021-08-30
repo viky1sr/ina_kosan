@@ -46,7 +46,7 @@
                 <li class="nav-item">
                     <a href="{{ route('bukti-trasnfer.index') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user-check"></i></span><span class="pcoded-mtext">
                                 @if(Auth::user()->hasRole('member'))
-                                Transfer
+                                Transfer Pembayaran
                             @else
                                 List Bukti Trasnfer
                             @endif
