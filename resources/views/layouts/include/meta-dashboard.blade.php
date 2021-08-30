@@ -17,3 +17,5 @@
 
 <!-- vendor css -->
 <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
+<link rel="stylesheet" href="{{asset('assets/sweetalert2/sweetalert2.min.css')}}">

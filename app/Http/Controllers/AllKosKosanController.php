@@ -260,7 +260,15 @@ class AllKosKosanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kos = RoomKosan::find($id)->delete();
+        FileKosan::where('id_room_kosans','=',$id)->delete();
+        KontrakSewa::where('id_room_kosans','=',$id)->delete();
+        LogPembayaran::where('id_room_kosans','=',$id)->delete();
+
+        return response()->json([
+            'status' => 'ok',
+            'messages' => 'Success delete kos kosan dan perent.'
+        ],200);
     }
 
     public function payNowShow(Request $request, $id){

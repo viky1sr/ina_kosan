@@ -96,13 +96,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label font-weight-bolder">Full Name</label>
                                     <div class="col-sm-9">
-                                        {{$data->user['name']}}
+                                        {{$data->user['name'] ?? null}}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label font-weight-bolder">Number Virtual Account</label>
                                     <div class="col-sm-9">
-                                        {{$data->code_virtual}}
+                                        {{$data->code_virtual ?? null}}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -114,7 +114,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label font-weight-bolder">Birth Date</label>
                                     <div class="col-sm-9">
-                                        {{$data->tanggal_lahir}}
+                                        {{$data->tanggal_lahir ?? null}}
                                     </div>
                                 </div>
                             </form>
@@ -193,44 +193,44 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Status Pembayaran</label>
                                         <div class="col-sm-9">
-                                            {{$item->status}}
+                                            {{$item->status ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Total Pembayaran</label>
                                         <div class="col-sm-9">
-                                            Rp. {{$item->total_pembayaran}}
+                                            Rp. {{$item->total_pembayaran ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Name Kosan</label>
                                         <div class="col-sm-9">
-                                            {{$item->room_kosan['name']}}
+                                            {{$item->room_kosan['name'] ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Location</label>
                                         <div class="col-sm-9">
-                                            {{$item->room_kosan['location']}}
+                                            {{$item->room_kosan['location'] ?? null}}
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Sewa Perbulan</label>
                                         <div class="col-sm-9">
-                                            Rp. {{$item->room_kosan['price']}}
+                                            Rp. {{$item->room_kosan['price'] ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Lama Sewa</label>
                                         <div class="col-sm-9">
-                                            {{$item->kontrak_sewa['lama_sewa']}}
+                                            {{$item->kontrak_sewa['lama_sewa'] ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Mulai Sewa</label>
                                         <div class="col-sm-9">
-                                            {{$item->kontrak_sewa['mulai_sewa']}}
+                                            {{$item->kontrak_sewa['mulai_sewa'] ?? null}}
                                         </div>
                                     </div>
                                 @empty
@@ -263,50 +263,50 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Name Penyewa</label>
                                         <div class="col-sm-9">
-                                            {{$item->user['name']}}
+                                            {{$item->user['name'] ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Status Pembayaran</label>
                                         <div class="col-sm-9">
-                                            {{$item->status}}
+                                            {{$item->status ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Total Pembayaran</label>
                                         <div class="col-sm-9">
-                                            Rp. {{rupiah($item->total_pembayaran)}}
+                                            Rp. {{rupiah($item->total_pembayaran ?? null) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Name Kosan</label>
                                         <div class="col-sm-9">
-                                            {{$item->room_kosan['name']}}
+                                            {{$item->room_kosan['name'] ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Location</label>
                                         <div class="col-sm-9">
-                                            {{$item->room_kosan['location']}}
+                                            {{$item->room_kosan['location'] ?? null}}
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Sewa Perbulan</label>
                                         <div class="col-sm-9">
-                                            Rp. {{rupiah($item->room_kosan['price'])}}
+                                            Rp. {{rupiah($item->room_kosan['price'] ?? null )}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Lama Sewa</label>
                                         <div class="col-sm-9">
-                                            {{$item->kontrak_sewa['lama_sewa']}}
+                                            {{$item->kontrak_sewa['lama_sewa'] ?? null}}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label font-weight-bolder">Mulai Sewa</label>
                                         <div class="col-sm-9">
-                                            {{$item->kontrak_sewa['mulai_sewa']}}
+                                            {{$item->kontrak_sewa['mulai_sewa'] ?? null}}
                                         </div>
                                     </div>
                                 @empty

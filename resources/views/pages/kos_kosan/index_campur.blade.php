@@ -125,13 +125,49 @@
                         @if(Auth::user()->status == 1)
                     {data: 'id', name: 'id' , searchable: false , orderable: false ,render : function(data, type , row) {
                             return '<a href="{{url('kos-kosan/pay-now')}}/'+row.id+'" title="pay" > <button ><i class="fas mr-2 fa-money-bill-wave text-info"></i> Pay Now</button> </a>' +
-                                '<a href="{{url('kos-kosan/edit')}}/'+row.id+'" title="update" > <button ><i class="fas mr-2 fa-pencil text-info"></i>Edit</button> </a>'
+                                '@if(Auth::user()->hasRole("admin"))<a href="{{url('kos-kosan/edit')}}/'+row.id+'" title="update" > <button ><i class="fas mr-2 fa-pencil text-info"></i>Edit</button> </a>' +
+                                '<a href="#" onClick="deleteCat('+row.id+')" title="delete" ><button><i class="feather mr-2 feather icon-trash-2"></i></button></a> @endif'
+
                         }
                     }
                     @endif
                 ]
             });
         });
+
+        const deleteCat = id => {
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            swal({
+                title: 'Yakin ingin menghapus data?',
+                text: "Semua data relasi kos kosan akan terhapus permanet.",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Delete!'
+            }).then(() => {
+                $.ajax({
+                    url : "{{ url('kos-kosan/delete') }}" + '/' + id,
+                    type : "POST",
+                    data : {
+                        '_method' : 'DELETE',
+                        '_token' : '{{ csrf_token() }}'
+                    },
+                    success : data => {
+                        oTable.ajax.reload();
+                        if(data.status == "ok"){
+                            toastr["success"](data.messages);
+                        }
+                    },
+                    error: function(data){
+                        var data = data.responseJSON;
+                        if(data.status == "fail"){
+                            toastr["error"](data.messages);
+                        }
+                    }
+                });
+            });
+        };
 
         function formatRupiah(angka, prefix){
             var number_string = angka.replace(/[^,\d]/g, '').toString(),

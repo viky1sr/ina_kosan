@@ -3,6 +3,7 @@
 <script src="{{asset('assets/js/ripple.js')}}"></script>
 <script src="{{asset('assets/js/pcoded.min.js')}}"></script>
 {{--<script src="assets/js/menu-setting.min.js"></script>--}}
+<script src="{{asset('assets/sweetalert2/sweetalert2.min.js')}}"></script>
 
 <script>
     $(document).ready(function() {

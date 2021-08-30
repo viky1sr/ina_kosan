@@ -3,8 +3,6 @@
 @section('style-page')
     <!-- data tables css -->
     <link rel="stylesheet" href="{{asset('assets/css/plugins/dataTables.bootstrap4.min.css')}}">
-    <!-- select2 css -->
-    <link rel="stylesheet" href="{{asset('assets/css/plugins/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/plugins/lightbox.min.css')}}">
 @stop
 
@@ -15,11 +13,11 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">{{$title_header}}</h5>
+                            <h5 class="m-b-10">{{$title}}</h5>
                         </div>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#"><i class="feather icon-book"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">{{$title_header}}</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="{{$icon}}"></i></a></li>
+                            <li class="breadcrumb-item"><a href="#">{{$title}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -27,29 +25,26 @@
         </div>
         <div class="card">
             <div class="card-header">
-                <h5>{{$title_header}} - {{$title}}</h5>
+                <h5>{{$title}}</h5>
             </div>
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
-                    @role('admin')
-                    <a href="{{route('kos-kosan.create')}}">
-                        <button type="button" class="btn btn-outline-success float-right"><i class="feather mr-2 feather icon-plus-square"></i>Create</button>
+                    <a href="{{route('bukti-trasnfer.bukti-create')}}">
+                        <button type="button" class="btn btn-success float-right"><i class="feather mr-2 feather icon-plus-square"></i>Create Transfer</button>
                     </a>
-                    @endrole
                 </div>
                 <div class="dt-responsive table-responsive">
                     <table id="dataTable" class="table table-striped table-bordered nowrap">
                         <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Name</th>
-                            <th>Type</th>
-                            <th>Fasilitas</th>
-                            <th>Harga Sewa</th>
-                            <th>Location</th>
-                            <th>Image</th>
-                            @if(Auth::user()->status == 1)
-                                <th>Salary</th>
-                            @endif
+                            <th>Nominal</th>
+                            <th>Bukti Transfer</th>
+                            <th>Status</th>
+                            @role('admin')
+                            <th>Action</th>
+                            @endrole
                         </tr>
                         </thead>
                         <tbody>
@@ -70,22 +65,11 @@
     <script src="{{asset('assets/js/plugins/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('assets/js/pages/data-plugin-custom.js')}}"></script>
 
-    <!-- select2 Js -->
-    <script src="{{asset('assets/js/plugins/select2.full.min.js')}}"></script>
-    <!-- form-select-custom Js -->
-    <script src="{{asset('assets/js/pages/form-select-custom.js')}}"></script>
-
     <script src="{{asset('assets/js/plugins/lightbox.min.js')}}"></script>
-    <script>
-        lightbox.option({
-            'resizeDuration': 200,
-            'wrapAround': true
-        })
-    </script>
 
     <script type="text/javascript">
-        var oTable ;
-        $(document).ready(() => {
+        var oTable;
+        $(document).ready( () => {
             $.fn.dataTable.ext.errMode = 'none';
 
             oTable = $('#dataTable').DataTable({
@@ -96,22 +80,17 @@
                 info: true,
                 autoWidth: false,
                 responsive: true,
-                order: [[ 2, 'desc' ]],
+                order: [[ 0, 'desc' ]],
                 ajax : {
-                    url : '{{route('kos-kosan.datatable-wanita')}}',
+                    url : '{{route('bukti-trasnfer.datatable')}}',
                     function(d) {
 
                     }
                 },
                 columns: [
-                    {data : 'name' , name: 'name'},
-                    {data : 'is_type.name' , name: 'is_type.name'},
-                    {data : 'fasilitas.fasilitas_name' , name: 'fasilitas.fasilitas_name'},
-                    {data : 'price' , name: 'price', render: function (data, type, row) {
-                            return `${formatRupiah(row.price, "")} /bulan`;
-                        }
-                    },
-                    {data : 'location' , name: 'location'},
+                    {data : 'id' , name: 'id'},
+                    {data : 'pengirim' , name: 'pengirim'},
+                    {data : 'idr' , name: 'idr'},
                     {data : 'id' , name: 'id' , searchable: false, orderable: false, render: function (data, type, row) {
                             return ' <div class="thumbnail mb-4">\n' +
                                 '                    <div class="thumb">\n' +
@@ -122,23 +101,28 @@
                                 '                </div>'
                         }
                     },
-                        @if(Auth::user()->status == 1)
-                    {data: 'id', name: 'id' , searchable: false , orderable: false ,render : function(data, type , row) {
-                            return '<a href="{{url('kos-kosan/pay-now')}}/'+row.id+'" title="pay" > <button ><i class="fas mr-2 fa-money-bill-wave text-info"></i> Pay Now</button> </a>' +
-                                '@if(Auth::user()->hasRole("admin"))<a href="{{url('kos-kosan/edit')}}/'+row.id+'" title="update" > <button ><i class="fas mr-2 fa-pencil text-info"></i>Edit</button> </a>' +
-                                '<a href="#" onClick="deleteCat('+row.id+')" title="delete" ><button><i class="feather mr-2 feather icon-trash-2"></i></button></a> @endif'
+                    {data : 'is_status' , name: 'is_status' },
+                @role('admin')
+                    {data : 'id' , name: 'id', render: (data, type, row) => {
+                        if(row.status == 0) {
+                            return '<a href="{{url('/bukti-trasnfer/apply/')}}/'+row.id+'" title="apply" ><i class="feather mr-2 feather icon-feather"></i>Check Transfer</a>';
+                            // '<a href="#" onClick="deleteUser('+row.id+')" title="delete" ><i class="feather mr-2 feather icon-trash-2"></i></a>';
+                        } else {
+                            return '<span class="text-success"><i class="feather mr-2 feather icon-thumbs-up "></i>Done Check</span>';
                         }
+
                     }
-                    @endif
+                    },
+                    @endrole
                 ]
             });
         });
 
-        const deleteCat = id => {
+        const deleteUser = id => {
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             swal({
                 title: 'Yakin ingin menghapus data?',
-                text: "Semua data relasi kos kosan akan terhapus permanet.",
+                text: "Data yang sudah di hapus tidak bisa di kembalikan!",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#d33',
@@ -146,7 +130,7 @@
                 confirmButtonText: 'Delete!'
             }).then(() => {
                 $.ajax({
-                    url : "{{ url('kos-kosan/delete') }}" + '/' + id,
+                    url : "{{ url('user/delete') }}" + '/' + id,
                     type : "POST",
                     data : {
                         '_method' : 'DELETE',
@@ -167,19 +151,5 @@
                 });
             });
         };
-
-        function formatRupiah(angka, prefix){
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split   	    = number_string.split(','),
-                sisa     		= split[0].length % 3,
-                rupiah     		= split[0].substr(0, sisa),
-                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
-            if(ribuan){
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
-            rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
-            return prefix === undefined ? rupiah : rupiah ? `Rp. ${rupiah}` : "";
-        }
     </script>
 @stop

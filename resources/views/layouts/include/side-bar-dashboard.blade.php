@@ -42,10 +42,23 @@
             </li>
             @endrole
 
+            @if(!Auth::user()->hasRole('visitor'))
+                <li class="nav-item">
+                    <a href="{{ route('bukti-trasnfer.index') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user-check"></i></span><span class="pcoded-mtext">
+                                @if(Auth::user()->hasRole('member'))
+                                Transfer
+                            @else
+                                List Bukti Trasnfer
+                            @endif
+                            </span>
+                    </a>
+                </li>
+            @endif
+
             @role('admin')
-            <li class="nav-item">
-                <a href="{{route('transfer.index')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-target"></i></span><span class="pcoded-mtext">Trasnfer Virtual</span></a>
-            </li>
+{{--            <li class="nav-item">--}}
+{{--                <a href="{{route('transfer.index')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-target"></i></span><span class="pcoded-mtext">Trasnfer Virtual</span></a>--}}
+{{--            </li>--}}
             <li class="nav-item pcoded-hasmenu">
                 <a href="#!" class="nav-link has-ripple"><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">User</span><span class="ripple ripple-animate" style="height: 210px; width: 210px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(70, 128, 255); opacity: 0.4; top: -78px; left: -12px;"></span></a>
                 <ul class="pcoded-submenu" >
