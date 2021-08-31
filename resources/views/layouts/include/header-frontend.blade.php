@@ -20,7 +20,7 @@
 
                     <ul class="menu-container">
                         <li class="menu-item current"><a class="menu-link" href="#"><div><i class="icon-building"></i>Kos Kosan</div></a></li>
-                        <li class="menu-item"><a class="menu-link" href="#"><div><i class="icon-phone3"></i>1800 105 2541</div></a></li>
+                        <li class="menu-item"><a class="menu-link" href="#"><div><i class="icon-phone3"></i>089694551719</div></a></li>
                         @if(isset(Auth::user()->id) && Auth::user()->id)
                             <li class="menu-item"><a class="menu-link" href="{{route('login')}}"><div><i class="icon-home"></i>Dashboard</div></a></li>
                         @else

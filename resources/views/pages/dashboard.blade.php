@@ -25,33 +25,33 @@
                 <!-- page statustic card start -->
                 <div class="row">
                     @role('admin')
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-8">
-                                        <h4 class="text-c-yellow">Rp. {{rupiah($earnings->saldo)}}</h4>
-                                        <h6 class="text-muted m-b-0">All Earnings</h6>
-                                    </div>
-                                    <div class="col-4 text-right">
-                                        <i class="feather icon-bar-chart-2 f-28"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-c-yellow">
-                                <div class="row align-items-center">
-                                    <div class="col-9">
-                                        <a href="{{route('virtaul-account.show',Auth::user()->id)}}">
-                                            <p class="text-white m-b-0">% change</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-3 text-right">
-                                        <i class="feather icon-trending-up text-white f-16"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="col-sm-4">--}}
+{{--                        <div class="card">--}}
+{{--                            <div class="card-body">--}}
+{{--                                <div class="row align-items-center">--}}
+{{--                                    <div class="col-8">--}}
+{{--                                        <h4 class="text-c-yellow">Rp. {{rupiah($earnings->saldo)}}</h4>--}}
+{{--                                        <h6 class="text-muted m-b-0">All Earnings</h6>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-4 text-right">--}}
+{{--                                        <i class="feather icon-bar-chart-2 f-28"></i>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="card-footer bg-c-yellow">--}}
+{{--                                <div class="row align-items-center">--}}
+{{--                                    <div class="col-9">--}}
+{{--                                        <a href="{{route('virtaul-account.show',Auth::user()->id)}}">--}}
+{{--                                            <p class="text-white m-b-0">% change</p>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-3 text-right">--}}
+{{--                                        <i class="feather icon-trending-up text-white f-16"></i>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     @endrole
                     <div class="col-sm-4">
                         <div class="card">
