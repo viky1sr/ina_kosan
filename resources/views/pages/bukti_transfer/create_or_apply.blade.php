@@ -122,10 +122,10 @@
                                 @endif
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="submit" id="disabled" class="btn  btn-primary">
+                                        <button type="submit" id="disabled" class="btn  btn-primary submitBtn">
                                             <i class="feather mr-2 feather icon-save"></i>Submit</button>
                                         <a href="{{route('home')}}">
-                                            <button type="button" class="btn  btn-danger">
+                                            <button type="button" class="btn  btn-danger backBtn">
                                                 <i class="feather mr-2 feather icon-corner-up-left"></i>Back</button>
                                         </a>
                                     </div>
@@ -183,16 +183,26 @@
                     dataType: 'json',
                     processData: false,
                     contentType: false,
+                    beforeSend: function(){
+                        $('.submitBtn').html('<div class="text-white mr-2 align-self-center loader-sm ">Loading upload...</div>');
+                        $('.submitBtn').prop('disabled', true);
+                        $('.backBtn').addClass('d-none');
+                    },
                     success: (data) => {
                         if(data.status === "ok"){
+                            $('.submitBtn').html('Submit');
+                            $('.submitBtn').prop('disabled', false);
+                            $('.backBtn').removeClass('d-none');
                             toastr["success"](data.messages);
-                            $("#disabled").prop('disabled', true);
                             window.location.href = data.route
                         }
                     },
                     error: (data) => {
                         var data = data.responseJSON;
                         if(data.status == "fail"){
+                            $('.submitBtn').html('Submit');
+                            $('.submitBtn').prop('disabled', false);
+                            $('.backBtn').removeClass('d-none');
                             toastr["error"](data.messages);
                         }
                     }
