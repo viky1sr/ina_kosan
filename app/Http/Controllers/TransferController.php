@@ -107,7 +107,9 @@ class TransferController extends Controller
                 'nominal' => $nominal,
                 'bukti_transfer' => $file->getFileInfo()->getFilename()
             ];
-            BuktiTransfer::firstOrCreate($input);
+
+            BuktiTransfer::create($input);
+
             return response()->json([
                 'status' => 'ok',
                 'messages' => 'Success create bukti transfer.',
