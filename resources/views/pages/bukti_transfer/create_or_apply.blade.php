@@ -3,6 +3,8 @@
 @section('style-page')
     <!-- select2 css -->
     <link rel="stylesheet" href="{{asset('assets/css/plugins/select2.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('assets/css/plugins/lightbox.min.css')}}">
 @stop
 
 @section('content')
@@ -79,7 +81,7 @@
                                                 <label for="exampleInputEmail1">Bukti Transfer</label>
                                                 <div class="thumbnail mb-4">
                                                     <div class="thumb">
-                                                        <a href="#" data-lightbox="1" data-title="My caption 1">
+                                                        <a href="{{$image ?? null}}" data-lightbox="1" data-title="My caption 1">
                                                             <img src="{{$image ?? null}}" alt="" class="img-fluid img-thumbnail" width="100">
                                                         </a>                    </div>
                                                 </div>
@@ -125,7 +127,7 @@
                                         <button type="submit" id="disabled" class="btn  btn-primary submitBtn">
                                             <i class="feather mr-2 feather icon-save"></i>Submit</button>
                                         <a href="{{route('home')}}">
-                                            <button type="button" class="btn  btn-danger backBtn">
+                                            <button class="btn  btn-danger backBtn">
                                                 <i class="feather mr-2 feather icon-corner-up-left"></i>Back</button>
                                         </a>
                                     </div>
@@ -146,6 +148,7 @@
     <script src="{{asset('assets/js/plugins/select2.full.min.js')}}"></script>
     <!-- form-select-custom Js -->
     <script src="{{asset('assets/js/pages/form-select-custom.js')}}"></script>
+    <script src="{{asset('assets/js/plugins/lightbox.min.js')}}"></script>
 
     <script type="text/javascript">
         $(document).on('keyup', ".idr",  function () {

@@ -151,13 +151,8 @@ class TransferController extends Controller
             ],422);
         }
 
-        $bukti = BuktiTransfer::find($id);
-        $bukti->update([
-           'status' => $req['status']
-        ]);
-
-        if($bukti->status == 1){
-            $check = BuktiTransfer::with('vitual')->find($id)->first();
+        if($req['status'] == 1){
+            $check = BuktiTransfer::with('vitual')->find($id);
             $search = ["."," ",",","Rp"];
             $checkSaldo = str_replace($search,"",$req['saldo']);
 
@@ -194,6 +189,13 @@ class TransferController extends Controller
                     ->update([
                         'saldo' => $calcu
                     ]);
+
+                $bukti = BuktiTransfer::find($id);
+
+                $bukti->update([
+                    'status' => $req['status']
+                ]);
+
                 return response()->json([
                     'status' => 'ok',
                     'messages' => 'Success transfer to member.',
