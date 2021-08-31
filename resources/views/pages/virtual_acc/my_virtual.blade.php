@@ -57,21 +57,21 @@
                         <div class="col-md-8 mt-md-4">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="#!" class="mb-1 text-muted d-flex align-items-end text-h-primary"><i class="feather icon-globe mr-2 f-18"></i>www.phoenixcoded.net</a>
+{{--                                    <a href="#!" class="mb-1 text-muted d-flex align-items-end text-h-primary"><i class="feather icon-globe mr-2 f-18"></i>www.phoenixcoded.net</a>--}}
                                     <div class="clearfix"></div>
                                     <a href="mailto:demo@domain.com" class="mb-1 text-muted d-flex align-items-end text-h-primary"><i class="feather icon-mail mr-2 f-18"></i>{{Auth::user()->email}}</a>
                                     <div class="clearfix"></div>
                                     <a href="#!" class="mb-1 text-muted d-flex align-items-end text-h-primary"><i class="feather icon-phone mr-2 f-18"></i>{{Auth::user()->no_hp}}</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="media">
-                                        <i class="feather icon-map-pin mr-2 mt-1 f-18"></i>
-                                        <div class="media-body">
-                                            <p class="mb-0 text-muted">4289 Calvin Street</p>
-                                            <p class="mb-0 text-muted">Baltimore, near MD Tower Maryland,</p>
-                                            <p class="mb-0 text-muted">Maryland (21201)</p>
-                                        </div>
-                                    </div>
+{{--                                    <div class="media">--}}
+{{--                                        <i class="feather icon-map-pin mr-2 mt-1 f-18"></i>--}}
+{{--                                        <div class="media-body">--}}
+{{--                                            <p class="mb-0 text-muted">4289 Calvin Street</p>--}}
+{{--                                            <p class="mb-0 text-muted">Baltimore, near MD Tower Maryland,</p>--}}
+{{--                                            <p class="mb-0 text-muted">Maryland (21201)</p>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
