@@ -15,14 +15,23 @@ class CreateLogPembayaransTable extends Migration
     {
         Schema::create('log_pembayarans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('id_users')->default(0);
-            $table->unsignedInteger('id_room_kosans')->default(0);
-            $table->unsignedInteger('id_virtual_accounts')->default(0);
-            $table->unsignedInteger('id_info_pembayaran')->default(0);
-            $table->unsignedInteger('id_kontrak_sewas')->default(0);
             $table->string('status');
             $table->string('total_pembayaran');
             $table->timestamps();
+        });
+
+        Schema::table('log_pembayarans', function($table) {
+            $table->unsignedBigInteger('id_room_kosans');
+            $table->unsignedBigInteger('id_users');
+            $table->unsignedBigInteger('id_virtual_accounts');
+            $table->unsignedBigInteger('id_kontrak_sewas');
+            $table->unsignedBigInteger('id_info_pembayaran');
+
+            $table->foreign('id_users')->references('id')->on('users');
+            $table->foreign('id_virtual_accounts')->references('id')->on('virtual_accounts');
+            $table->foreign('id_room_kosans')->references('id')->on('room_kosans');
+            $table->foreign('id_kontrak_sewas')->references('id')->on('kontrak_sewas');
+            $table->foreign('id_info_pembayaran')->references('id')->on('info_pembayaran_bulanans');
         });
     }
 

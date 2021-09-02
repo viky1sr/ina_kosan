@@ -15,12 +15,18 @@ class CreateBuktiTransfersTable extends Migration
     {
         Schema::create('bukti_transfers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id')->default(0);
             $table->unsignedInteger('status')->default(0);
             $table->string('nominal');
             $table->string('bukti_transfer');
             $table->timestamps();
         });
+
+        Schema::table('bukti_transfers', function($table) {
+            $table->unsignedBigInteger('id_users');
+
+            $table->foreign('id_users')->references('id')->on('users');
+        });
+
     }
 
     /**

@@ -15,9 +15,14 @@ class CreateFileKosansTable extends Migration
     {
         Schema::create('file_kosans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('id_room_kosans');
             $table->text('file_kosan');
             $table->timestamps();
+        });
+
+        Schema::table('file_kosans', function($table) {
+            $table->unsignedBigInteger('id_room_kosans');
+
+            $table->foreign('id_room_kosans')->references('id')->on('room_kosans');
         });
     }
 

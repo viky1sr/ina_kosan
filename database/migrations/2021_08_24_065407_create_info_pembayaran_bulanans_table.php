@@ -15,13 +15,20 @@ class CreateInfoPembayaranBulanansTable extends Migration
     {
         Schema::create('info_pembayaran_bulanans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('id_users')->default(0);
-            $table->unsignedInteger('id_virtual_accounts')->default(0);
             $table->unsignedInteger('status')->default(0);
             $table->string('payment');
             $table->string('payment_date');
             $table->timestamps();
         });
+
+        Schema::table('info_pembayaran_bulanans', function($table) {
+            $table->unsignedBigInteger('id_users');
+            $table->unsignedBigInteger('id_virtual_accounts');
+
+            $table->foreign('id_users')->references('id')->on('users');
+            $table->foreign('id_virtual_accounts')->references('id')->on('virtual_accounts');
+        });
+
     }
 
     /**
