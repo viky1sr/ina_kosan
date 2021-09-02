@@ -28,11 +28,31 @@
                 <h5>{{$title}}</h5>
             </div>
             <div class="card-body">
+                @role('member')
                 <div class="dt-responsive table-responsive">
                     <a href="{{route('bukti-trasnfer.bukti-create')}}">
-                        <button type="button" class="btn btn-success float-right"><i class="feather mr-2 feather icon-plus-square"></i>Create Transfer</button>
+                        <button type="button" class="btn btn-success float-right"><i class="feather mr-2 feather icon-plus-square"></i>Upload Bukti Transfer</button>
                     </a>
                 </div>
+                <table>
+                    <p>Silakan Transfer ke nomor rekening di bawah ini.</p>
+                    <tr>
+                        <th>Name Bank:
+                            <td>BRI</td>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Name:
+                        <td>INA</td>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>No Rekening:
+                        <td>8955156966</td>
+                        </th>
+                    </tr>
+                </table>
+                @endrole
                 <div class="dt-responsive table-responsive">
                     <table id="dataTable" class="table table-striped table-bordered nowrap">
                         <thead>

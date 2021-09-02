@@ -75,13 +75,13 @@
                                                 @if(!empty($data->is_type))
                                                     <option value="">---</option>
                                                     <option value="1" {{ $data->is_type['id'] == 1 ? "selected" : null}}>Campur</option>
-                                                    <option value="3" {{ $data->is_type['id'] == 3 ? "selected" : null}}>Perempuan</option>
                                                     <option value="2" {{ $data->is_type['id'] == 2 ? "selected" : null}}>Laki-Laki</option>
+                                                    <option value="3" {{ $data->is_type['id'] == 3 ? "selected" : null}}>Perempuan</option>
                                                 @else
                                                     <option value="">---</option>
                                                     <option value="1" >Campur</option>
-                                                    <option value="3" >Perempuan</option>
                                                     <option value="2" >Laki-Laki</option>
+                                                    <option value="3" >Perempuan</option>
                                                 @endif
                                             </select>
                                         </div>

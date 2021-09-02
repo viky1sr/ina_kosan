@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group fill">
-                                            <label for="exampleInputEmail1">Lawa Sewa</label>
+                                            <label for="exampleInputEmail1">Lama Sewa</label>
                                             <select name="lama_sewa" class="js-example-placeholder-sewa col-sm-12">
                                                 <option value="">---</option>
                                                 @forelse($bulans as $key => $item)
@@ -109,7 +109,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLiveLabel">Modal Title</h5>
+                    <h5 class="modal-title" id="exampleModalLiveLabel">Your PIN</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">

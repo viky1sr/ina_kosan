@@ -6,8 +6,8 @@
                 <!-- Logo
                 ============================================= -->
                 <div id="logo">
-                    <a href="demo-travel.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="{{asset('images/logo.png')}}" alt="Canvas Logo"></a>
-                    <a href="demo-travel.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="{{asset('images/logo@2x.png')}}" alt="Canvas Logo"></a>
+{{--                    <a href="#" class="standard-logo" data-dark-logo="{{asset('home_1.png')}}"><img src="{{asset('home_1.png')}}" alt="Canvas Logo"></a>--}}
+{{--                    <a href="#" class="retina-logo" data-dark-logo="{{asset('home_1.png')}}"><img src="{{asset('home_1.png')}}" alt="Canvas Logo"></a>--}}
                 </div><!-- #logo end -->
 
                 <div id="primary-menu-trigger">
