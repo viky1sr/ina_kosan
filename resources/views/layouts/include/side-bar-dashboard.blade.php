@@ -10,8 +10,10 @@
             </div>
             <div class="collapse" id="nav-user-link">
                 <ul class="list-inline">
+                    @if(!Auth::user()->hasRole('visitor'))
                     <li class="list-inline-item"><a href="{{route('virtaul-account.show',Auth::user()->virtual_acc['id'])}}" data-toggle="tooltip" title="View Profile"><i class="feather icon-user"></i></a></li>
-                    <li class="list-inline-item"><a href="{{route('my-kosan.index')}}"><i class="feather icon-shopping-cart" data-toggle="tooltip" title="My Kosan"></i></a></li>
+                    @endif
+                        <li class="list-inline-item"><a href="{{route('my-kosan.index')}}"><i class="feather icon-shopping-cart" data-toggle="tooltip" title="My Kosan"></i></a></li>
                     <li class="list-inline-item">
                         <a href="{{ route('logout') }}" data-toggle="tooltip" title="Logout" class="text-danger"
                                                     onclick="event.preventDefault();
