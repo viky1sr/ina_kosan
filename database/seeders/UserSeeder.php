@@ -55,16 +55,16 @@ class UserSeeder extends Seeder
             ]);
         $member->assignRole('member');
 
-        $visitor = User::firstOrCreate(
-            [
-                'email' => 'visitor@demo.com'
-            ],
-            [
-                'name' => 'Visitor',
-                'no_hp' => '0217777777',
-                'password' => Hash::make('qweasd123'),
-                'email_verified_at' => Carbon::now()
-            ]);
-        $visitor->assignRole('visitor');
+//        $visitor = User::firstOrCreate(
+//            [
+//                'email' => 'visitor@demo.com'
+//            ],
+//            [
+//                'name' => 'Visitor',
+//                'no_hp' => '0217777777',
+//                'password' => Hash::make('qweasd123'),
+//                'email_verified_at' => Carbon::now()
+//            ]);
+//        $visitor->assignRole('visitor');
     }
 }
