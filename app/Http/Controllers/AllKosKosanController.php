@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BuktiTransfer;
 use App\Models\FasilitasRoom;
 use App\Models\FileKosan;
 use App\Models\InfoPembayaranBulanan;
@@ -107,6 +108,7 @@ class AllKosKosanController extends Controller
 
         $search = ['Rp','.',' '];
         $input = [
+            'id_pemilik' => Auth::user()->id,
             'name' => $req['name'],
             'type' => $req['type'],
             'price' => str_replace($search,"",$req['price']),
@@ -283,6 +285,55 @@ class AllKosKosanController extends Controller
         return view('pages.kos_kosan.pay_now',$array);
     }
 
+    public function payKosKosan(Request $request ,$id){
+        $req = $request->all();
+
+        $msg = [
+            'mulai_sewa.required' => 'Silakan pilih tanggal mulai sewa.',
+            'lama_sewa.required' => 'Silakan pilih lama sewa.',
+        ];
+        $validator = Validator::make($req,[
+            'mulai_sewa' => 'required',
+            'lama_sewa' => 'required',
+            'bukti_transfer' => 'required|mimes:jpg,jpeg,png,jfif|max:10000'
+        ],$msg);
+
+        if($validator->fails()) {
+            return response()->json([
+                'status' => 'fail',
+                'messages' => $validator->errors()->first()
+            ],422);
+        }
+
+        if ($request->hasFile('bukti_transfer')) {
+            $input = [
+                'id_users' => Auth::user()->id,
+                'id_room_kosans' => $req['id'],
+                'status' => 1,
+                'mulai_sewa' => $req['mulai_sewa'],
+                'lama_sewa' => $req['lama_sewa'],
+            ];
+            $success = KontrakSewa::firstOrCreate($input);
+
+            $file = $request->file('bukti_transfer');
+            $file = $this->uploadBuktiTransfer($file);
+
+            $inputTf = [
+                'id_users' => Auth::user()->id,
+                'id_kontrak_sewa' => $success->id,
+                'nominal' => 0,
+                'bukti_transfer' => $file->getFileInfo()->getFilename()
+            ];
+            BuktiTransfer::create($inputTf);
+
+            return response()->json([
+                'status' => 'ok',
+                'messages' => 'Success pembayaran sewa kosa kosan.',
+                'route' => route('my-kosan.index')
+            ],200);
+        }
+    }
+
     public function payNowStore(Request $request, $id){
         $req = $request->all();
         $virtual = VirtualAccount::where('id_users',Auth::user()->id)->first();
@@ -381,7 +432,14 @@ class AllKosKosanController extends Controller
 
 
     public function dataTablesPria(Request $request) {
-        $data = RoomKosan::with('file','fasilitas','is_type')->where('type','=',2);
+        if(Auth::user()->hasRole('vendor')){
+            $data = RoomKosan::with('file','fasilitas','is_type','pemilik')
+                ->where('id_pemilik','=',Auth::user()->id)
+                ->where('type','=',2);
+        } else {
+            $data = RoomKosan::with('file','fasilitas','is_type')->where('type','=',2);
+        }
+
         return datatables($data)
             ->addColumn('image',function ($q){
                 $val = $q->file->file_kosan;
@@ -392,7 +450,13 @@ class AllKosKosanController extends Controller
     }
 
     public function dataTablesWanita(Request $request) {
-        $data = RoomKosan::with('file','fasilitas','is_type')->where('type','=',3);
+        if(Auth::user()->hasRole('vendor')){
+            $data = RoomKosan::with('file','fasilitas','is_type','pemilik')
+                ->where('id_pemilik','=',Auth::user()->id)
+                ->where('type','=',3);
+        } else {
+            $data = RoomKosan::with('file','fasilitas','is_type','pemilik')->where('type','=',3);
+        }
         return datatables($data)
             ->addColumn('image',function ($q){
                 $val = $q->file->file_kosan;
@@ -403,7 +467,13 @@ class AllKosKosanController extends Controller
     }
 
     public function dataTablesCampur(Request $request) {
-        $data = RoomKosan::with('file','fasilitas','is_type')->where('type','=',1);
+        if(Auth::user()->hasRole('vendor')){
+            $data = RoomKosan::with('file','fasilitas','is_type','pemilik')
+                ->where('id_pemilik','=',Auth::user()->id)
+                ->where('type','=',1);
+        } else {
+            $data = RoomKosan::with('file','fasilitas','is_type','pemilik')->where('type','=',1);
+        }
         return datatables($data)
             ->addColumn('image',function ($q){
                 $val = $q->file->file_kosan;
@@ -425,5 +495,13 @@ class AllKosKosanController extends Controller
         $file = FileKosan::where('id_room_kosans', $id)->firstOrFail();
         $pathToFile = public_path() . '/uploads/file_kosan/' . $file->file_kosan;
         return response()->download($pathToFile);
+    }
+
+    public function uploadBuktiTransfer(UploadedFile $file)
+    {
+        $destinationPath = public_path() . '/uploads/file_transfer/';
+        $extension = $file->getClientOriginalExtension() ?: 'png';
+        $fileName = $file->getClientOriginalName();
+        return $file->move($destinationPath, $fileName);
     }
 }

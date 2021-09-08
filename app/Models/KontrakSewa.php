@@ -29,4 +29,8 @@ class KontrakSewa extends Model
     public function kosan() {
         return $this->hasOne(RoomKosan::class,'id','id_room_kosans');
     }
+
+    public function bukti_tf(){
+        return $this->hasOne(BuktiTransfer::class,'id_kontrak_sewa','id');
+    }
 }

@@ -140,6 +140,31 @@
         </div>
         <!-- [ Main Content ] end -->
     </div>
+
+    @role('visitor')
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="text-danger">Information Status Vendor</h5><h5 class="float-right">{{Auth::user()->status == 0 ? "Pending" : "Success"}}</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="row justify-content-center text-left">
+                                    <p class="f-16"><strong>Kos Kosan</strong> Penyewaan online.</p>
+                                    <p class="f-16"><strong> Terimakasi</strong> Sudah mendaftar menjadi<strong> vendor</strong> kami , data sedang di proses</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endrole
+
     @role('member')
     @if(!empty($check_sewa))
         @if($check_sewa == 0)

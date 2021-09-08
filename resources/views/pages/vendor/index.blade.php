@@ -14,11 +14,11 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">{{$title_header}}</h5>
+                            <h5 class="m-b-10">{{$title}}</h5>
                         </div>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#"><i class="feather icon-book"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">{{$title_header}}</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="feather icon-user"></i></a></li>
+                            <li class="breadcrumb-item"><a href="#">{{$title}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -26,16 +26,9 @@
         </div>
         <div class="card">
             <div class="card-header">
-                <h5>{{$title_header}} - {{$title}}</h5>
+                <h5>{{$title}}</h5>
             </div>
             <div class="card-body">
-                <div class="dt-responsive table-responsive">
-                    @role('admin')
-{{--                    <a href="{{route('kos-kosan.create')}}">--}}
-{{--                        <button type="button" class="btn btn-outline-success float-right"><i class="feather mr-2 feather icon-plus-square"></i>Create</button>--}}
-{{--                    </a>--}}
-                    @endrole
-                </div>
                 <div class="dt-responsive table-responsive">
                     <table id="dataTable" class="table table-striped table-bordered nowrap">
                         <thead>
@@ -44,7 +37,8 @@
                             <th>Name</th>
                             <th>Number Phone</th>
                             <th>Email</th>
-{{--                            <th>Action</th>--}}
+                            <th>Document</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -85,7 +79,7 @@
                 responsive: true,
                 order: [[ 0, 'desc' ]],
                 ajax : {
-                    url : '{{route('visitor.datatable')}}',
+                    url : '{{route('vendor.list-datatable')}}',
                     function(d) {
 
                     }
@@ -95,10 +89,17 @@
                     {data : 'name' , name: 'name'},
                     {data : 'no_hp' , name: 'no_hp'},
                     {data : 'email' , name: 'email'},
-                    {{--{data: 'id', name: 'id' , searchable: false , orderable: false ,render : function(data, type , row) {--}}
-                    {{--        return '<a href="{{url('/visitor/create/')}}/'+row.id+'" title="show" ><i class="feather mr-2 feather icon-edit"></i>Create Virtual Acc</a>'--}}
-                    {{--    }--}}
-                    {{--}--}}
+                    {data: 'id', name: 'id' , searchable: false , orderable: false ,render : function(data, type , row) {
+                        if(row.vendor != null) {
+                            return '<a href="{{url('/vendor/download')}}/'+row.vendor.id+'" title="show" ><i class="feather mr-2 feather icon-download"></i>Download</a>'
+                        } else {
+                            return '';
+                        }}
+                    },
+                    {data: 'id', name: 'id' , searchable: false , orderable: false ,render : function(data, type , row) {
+                            return '<a href="{{url('/vendor/list')}}/'+row.id+'" title="show" ><i class="feather mr-2 feather icon-thumbs-up"></i>Check</a>'
+                        }
+                    },
                 ]
             });
         });

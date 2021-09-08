@@ -19,11 +19,23 @@
                 <nav class="primary-menu style-4 menu-spacing-margin">
 
                     <ul class="menu-container">
-                        <li class="menu-item current"><a class="menu-link" href="#"><div><i class="icon-building"></i>Kos Kosan</div></a></li>
-                        <li class="menu-item"><a class="menu-link" href="#"><div><i class="icon-phone3"></i>089694551719</div></a></li>
-                        @if(isset(Auth::user()->id) && Auth::user()->id)
-                            <li class="menu-item"><a class="menu-link" href="{{route('login')}}"><div><i class="icon-home"></i>Dashboard</div></a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{route('lading-page')}}"><div><i class="icon-building"></i>Kos Kosan</div></a></li>
+                       @if(isset(Auth::user()->id) && Auth::user()->id)
+                            <li class="menu-item"><a class="menu-link" href="{{route('home')}}"><div><i class="icon-home"></i>Dashboard</div></a></li>
+                            <li class="menu-item">
+                                <a href="{{route('logout')}}" class="menu-link" title="Logout"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    <div><i class="icon-lock"></i>Logout</div>
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
                         @else
+                            <li class="menu-item"><a class="menu-link" href="{{route('register-vendor')}}"><div><i class="icon-user"></i>Register Vendor</div></a></li>
+
                             <li class="menu-item"><a class="menu-link" href="{{route('login')}}"><div><i class="icon-user"></i>Login</div></a></li>
                         @endif
                     </ul>

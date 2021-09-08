@@ -41,7 +41,11 @@
                             <th>Tanggal Sewa</th>
                             <th>Periode Sewa</th>
                             <th>Location</th>
+                            <th>Bukti TF</th>
                             <th>Status</th>
+                            @if(!Auth::user()->hasRole('member'))
+                            <th>Action</th>
+                                @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -52,6 +56,34 @@
                         </tfoot>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="exampleModalCenter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form id="applyForm" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }} {{ method_field('POST') }}
+                        <div class="row">
+                            <label for=""> Select Status</label>
+                            <select name="status" class="form-control select2">
+                                <option value="">---</option>
+                                <option value="2">Success</option>
+                                <option value="3">Reject</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="clickBtn" class="btn  btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -102,19 +134,82 @@
                         }
                     },
                     {data : 'mulai_sewa' , name: 'mulai_sewa'},
-                    {data : 'lama_sewa' , name: 'lama_sewa'},
+                    {data : 'lama_sewa' , name: 'lama_sewa', render: function (data, type, row) {
+                        return `${row.lama_sewa} bulan`
+                        }},
                     {data : 'kosan.location' , name: 'kosan.location'},
                     {data : 'id' , name: 'id' , searchable: false, orderable: false, render: function (data, type, row) {
+                            return ' <div class="thumbnail mb-4">\n' +
+                                '                    <div class="thumb">\n' +
+                                '                        <a href="'+row.image+'" data-lightbox="1" data-title="My caption 1">\n' +
+                                '                            <img src="'+row.image+'" alt="" class="img-fluid img-thumbnail" width="50">\n' +
+                                '                        </a>\n' +
+                                '                    </div>\n' +
+                                '                </div>'
+                        }
+                    },
+                    {data : 'id' , name: 'id' , searchable: false, orderable: false, render: function (data, type, row) {
                         if(row.status == 1){
-                            return 'Active'
+                            return 'Pending'
                         } else if(row.status == 0){
                             return 'Non Active'
+                        } else if(row.status == 2 ){
+                            return 'Active'
                         }
                         }
                     },
+                        @if(!Auth::user()->hasRole('member'))
+                    {data:'id',render: function (data, type, row) {
+                        if(row.status != 1) {
+                            return '<p class="text-success"><i class="feather mr-2 feather icon-thumbs-up"></i> Done Check</p>'
+                        } else {
+                            return '<a onclick="updateSatus('+row.id+')" class="text-warning" ><i class="feather mr-2 feather icon-feather"></i>Check Now</a>';
+                        }
+                    }
+                    }
+                        @endif
                 ]
             });
         });
+
+        function updateSatus(id) {
+            $('#exampleModalCenter').modal('show')
+            var idKosan = id;
+            var url = '{{url('/my-kosan')}}' + '/' + idKosan
+            $('#id').val(idKosan)
+            $(document).ready( () => {
+                $('#clickBtn').on('click', (e) => {
+                    e.preventDefault();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        // data: $(this).find('input,select,textarea').serialize(),
+                        data: new FormData($('#applyForm')[0]),
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: (data) => {
+                            if(data.status === "ok"){
+                                $('#exampleModalCenter').modal('hide')
+                                toastr["success"](data.messages);
+                                oTable.ajax.reload(false)
+                            }
+                        },
+                        error: (data) => {
+                            var data = data.responseJSON;
+                            if(data.status == "fail"){
+                                toastr["error"](data.messages);
+                            }
+                        }
+                    });
+                });
+            })
+        }
 
         function formatRupiah(angka, prefix){
             var number_string = angka.replace(/[^,\d]/g, '').toString(),

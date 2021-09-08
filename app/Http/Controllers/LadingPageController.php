@@ -9,7 +9,7 @@ class LadingPageController extends Controller
 {
     public function index(Request $request) {
         $array = [
-            'kosans' => RoomKosan::with('file','is_type')->paginate(4),
+            'kosans' => RoomKosan::with('file','is_type','fasilitas')->paginate(4),
         ];
 
         return view('pages.frontend',$array);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuktiTransfersTable extends Migration
+class CreateActivationVendorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,21 @@ class CreateBuktiTransfersTable extends Migration
      */
     public function up()
     {
-        Schema::create('bukti_transfers', function (Blueprint $table) {
+        Schema::create('activation_vendors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('status')->default(0);
-            $table->unsignedInteger('id_kontrak_sewa')->default(0);
-            $table->string('nominal')->nullable();
-            $table->string('bukti_transfer');
+            $table->string('name_kosan');
+            $table->string('no_hp_kosan');
+            $table->string('address');
+            $table->string('reason');
+            $table->string('file_pendukung');
             $table->timestamps();
         });
 
-        Schema::table('bukti_transfers', function($table) {
+        Schema::table('activation_vendors', function($table) {
             $table->unsignedBigInteger('id_users');
 
             $table->foreign('id_users')->references('id')->on('users');
         });
-
     }
 
     /**
@@ -37,6 +37,6 @@ class CreateBuktiTransfersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bukti_transfers');
+        Schema::dropIfExists('activation_vendors');
     }
 }

@@ -40,6 +40,10 @@
                                                 </ul>
                                             </div>
                                             <div class="entry-content">
+                                                <div class="clearfix" style="margin-bottom: 10px;">
+                                                    <h5>Fasilitas:</h5>
+                                                    {{$item->fasilitas['fasilitas_name']}}
+                                                </div>
 {{--                                                <div class="clearfix" style="margin-bottom: 10px;">--}}
 {{--                                                    <i class="i-rounded i-small i-bordered icon-wifi-full"  data-toggle="tooltip" data-placement="top" title="WiFi"></i>--}}
 {{--                                                    <i class="i-rounded i-small i-bordered icon-glass"  data-toggle="tooltip" data-placement="top" title="Bar"></i>--}}
@@ -49,7 +53,11 @@
 {{--                                                    <i class="i-rounded i-small i-bordered icon-bell"  data-toggle="tooltip" data-placement="top" title="Room Service"></i>--}}
 {{--                                                    <i class="i-rounded i-small i-bordered border-0 i-light icon-coffee2"  data-toggle="tooltip" data-placement="top" title="Cafe Unavailable"></i>--}}
 {{--                                                </div>--}}
-                                                <p class="mb-0">{{$item->description}}</p>
+                                                <div class="clearfix" style="margin-bottom: 10px;">
+                                                    <h5>Description:</h5>
+                                                    <p class="mb-0">{{$item->description}}</p>
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="col-lg-auto col-md-4 mt-4 mt-lg-0 text-left text-md-center">
@@ -57,7 +65,7 @@
                                                 <i class="">Rp. </i>{{rupiah($item->price)}}
                                             </div>
                                             <small><em>Harga per bulan</em></small><br>
-                                            <a href="{{route('home')}}"class="button button-rounded mt-4 mx-0">Pesan</a>
+                                            <a href="{{route('kos-kosan.pay-now-store',$item->id)}}"class="button button-rounded mt-4 mx-0">Pesan</a>
                                         </div>
                                     </div>
                                 </div>

@@ -22,6 +22,12 @@ class CreateRoomKosansTable extends Migration
             $table->text('description');
             $table->timestamps();
         });
+
+        Schema::table('room_kosans', function($table) {
+            $table->unsignedBigInteger('id_pemilik');
+
+            $table->foreign('id_pemilik')->references('id')->on('users');
+        });
     }
 
     /**

@@ -31,24 +31,30 @@
             </div>
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
-                    @role('admin')
+                    @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('vendor'))
                     <a href="{{route('kos-kosan.create')}}">
                         <button type="button" class="btn btn-outline-success float-right"><i class="feather mr-2 feather icon-plus-square"></i>Create</button>
                     </a>
-                    @endrole
+                    @endif
                 </div>
                 <div class="dt-responsive table-responsive">
                     <table id="dataTable" class="table table-striped table-bordered nowrap">
                         <thead>
                         <tr>
-                            <th>Name</th>
+                            @role('admin')
+                            <th>Name Pemilik Kosan</th>
+                            @endrole
+                            <th>Name Kosan</th>
                             <th>Type</th>
                             <th>Fasilitas</th>
                             <th>Harga Sewa</th>
                             <th>Location</th>
                             <th>Image</th>
                             @if(Auth::user()->status == 1)
-                            <th>Salary</th>
+                                @role('member')
+                                <th>Pay Now</th>
+                                @endrole
+                                <th>Action</th>
                             @endif
                         </tr>
                         </thead>
@@ -104,7 +110,10 @@
                     }
                 },
                 columns: [
-                    {data : 'name' , name: 'name'},
+                @role('admin')
+                    {data : 'pemilik.name_vendor', name: 'pemilik.name_vendor'},
+                    @endrole
+                    {data : 'name', name: 'name'},
                     {data : 'is_type.name' , name: 'is_type.name'},
                     {data : 'fasilitas.fasilitas_name' , name: 'fasilitas.fasilitas_name'},
                     {data : 'price' , name: 'price', render: function (data, type, row) {
@@ -124,8 +133,8 @@
                     },
                         @if(Auth::user()->status == 1)
                     {data: 'id', name: 'id' , searchable: false , orderable: false ,render : function(data, type , row) {
-                            return '<a href="{{url('kos-kosan/pay-now')}}/'+row.id+'" title="pay" > <button ><i class="fas mr-2 fa-money-bill-wave text-info"></i> Pay Now</button> </a>' +
-                                '@if(Auth::user()->hasRole("admin"))<a href="{{url('kos-kosan/edit')}}/'+row.id+'" title="update" > <button ><i class="fas mr-2 fa-pencil text-info"></i>Edit</button> </a>' +
+                            return '@if(Auth::user()->hasRole("member"))<a href="{{url('kos-kosan/pay-now')}}/'+row.id+'" title="pay" > <button ><i class="fas mr-2 fa-money-bill-wave text-info"></i> Pay Now</button> </a> @endif' +
+                                '@if(Auth::user()->hasRole("admin") || Auth::user()->hasRole('vendor'))<a href="{{url('kos-kosan/edit')}}/'+row.id+'" title="update" > <button ><i class="fas mr-2 fa-pencil text-info"></i>Edit</button> </a>' +
                                 '<a href="#" onClick="deleteCat('+row.id+')" title="delete" ><button><i class="feather mr-2 feather icon-trash-2"></i></button></a> @endif'
                         }
                     }

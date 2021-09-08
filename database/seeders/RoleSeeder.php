@@ -17,6 +17,7 @@ class RoleSeeder extends Seeder
         $role_array = [
             'visitor',
             'member',
+            'vendor',
             'admin'
         ];
 

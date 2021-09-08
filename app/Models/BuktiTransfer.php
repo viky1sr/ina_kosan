@@ -10,17 +10,18 @@ class BuktiTransfer extends Model
     use HasFactory;
 
     protected $fillable = [
-      'user_id',
+      'id_users',
       'status',
       'nominal',
-      'bukti_transfer'
+      'bukti_transfer',
+        'id_kontrak_sewa'
     ];
 
     public function user(){
-        return $this->hasOne(User::class,'id','user_id');
+        return $this->hasOne(User::class,'id','id_users');
     }
 
     public function vitual(){
-        return $this->hasOne(VirtualAccount::class,'id_users','user_id');
+        return $this->hasOne(VirtualAccount::class,'id_users','id_users');
     }
 }

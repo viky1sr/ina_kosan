@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivationVendor;
 use App\Models\User;
 use App\Models\VirtualAccount;
 use Carbon\Carbon;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use DB;
+use Yajra\DataTables\DataTables;
 
 class AllUserController extends Controller
 {
@@ -24,7 +26,7 @@ class AllUserController extends Controller
     public function visitorIndex() {
         $array = [
             'title' => '',
-            'title_header' => 'Visitor',
+            'title_header' => 'Vendor',
         ];
 
         return view('pages.visitor.index',$array);
@@ -39,7 +41,11 @@ class AllUserController extends Controller
     }
 
     public function visitorDataTable(Request $request) {
-        $data = User::where('status','=',0);
+        $data = User::with('roles')
+        ->where('status','=',1)
+        ->whereHas('roles',function($q){
+            $q->where('name','=','vendor');
+        });
         return datatables($data)->toJson();
     }
 
@@ -134,5 +140,68 @@ class AllUserController extends Controller
             'messages' => 'Success update visitor to member.',
             'route' => route('home')
         ],200);
+    }
+
+
+    public function listVendor() {
+        $array = [
+          'title' => 'List Vendor'
+        ];
+        return view('pages.vendor.index',$array);
+    }
+
+    public function listVendorShow($id) {
+        $array = [
+          'id' => $id,
+          'data' => User::with('vendor')->find($id),
+          'title' => 'Vendor Verification'
+        ];
+//        dd($array['data']);
+        return view('pages.vendor.apply',$array);
+    }
+
+    public function listVendorApply(Request $request, $id) {
+        $req = $request->all();
+
+        if($req['status'] == null) {
+            return response()->json([
+                'status' => 'fail',
+                'messages' => 'Please select status'
+            ],422);
+        }
+
+        $user = User::find($id);
+        $user->update([
+          'status' => $req['status']
+        ]);
+
+        if($user->status == 1) {
+            DB::table('model_has_roles')->where('model_id',$id)
+                ->update([
+                    'role_id' => 3
+                ]);
+        }
+        return response()->json([
+            'status' => 'ok',
+            'messages' => 'Success update status.',
+            'route' => route('vendor.list')
+        ],200);
+    }
+
+    public function dataTables(){
+        $data = User::with('vendor','roles')
+            ->where('status','=',0)
+            ->whereHas('roles', function ($q){
+                $q->where('name','=','visitor');
+            });
+
+        return DataTables::of($data)
+            ->make();
+    }
+
+    public function downloadFileVendor($id) {
+        $file = ActivationVendor::where('id', $id)->firstOrFail();
+        $pathToFile = public_path() . '/uploads/file_vendor/' . $file->file_pendukung;
+        return response()->download($pathToFile);
     }
 }

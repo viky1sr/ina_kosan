@@ -2,6 +2,8 @@
 <html dir="ltr" lang="en-US">
 <head>
     @include('layouts.include.meta-frontend')
+    @toastr_css
+    @yield('style-page')
 </head>
 
 <body class="stretched">
@@ -37,6 +39,8 @@
 <!-- JavaScripts
 ============================================= -->
 @include('layouts.include.plugins-frontend')
-
+@toastr_js
+@toastr_render
+@yield('script-page')
 </body>
 </html>

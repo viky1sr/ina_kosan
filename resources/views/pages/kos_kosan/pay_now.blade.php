@@ -29,6 +29,28 @@
                     <h5>{{$title}} {{$title_header}}</h5>
                 </div>
                 <div class="card-body">
+                    @role('member')
+                    <table>
+                        <p>Silakan Transfer ke nomor rekening di bawah ini.</p>
+                        <tr>
+                            <th>Name Bank:
+                            <td>BRI</td>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Name:
+                            <td>INA</td>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>No Rekening:
+                            <td>8955156966</td>
+                            </th>
+                        </tr>
+                    </table>
+                    @endrole
+                </div>
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <form id="payNowForm" method="post" action="{{route('kos-kosan.pay-now-store',$id)}}" enctype="multipart/form-data" >
@@ -72,23 +94,38 @@
                                     <div class="col-md-6">
                                         <div class="form-group fill">
                                             <label for="exampleInputEmail1">Lama Sewa</label>
-                                            <select name="lama_sewa" class="js-example-placeholder-sewa col-sm-12">
+                                            <select name="lama_sewa" class="js-example-placeholder-sewa col-sm-12 lamaSewa">
                                                 <option value="">---</option>
                                                 @forelse($bulans as $key => $item)
-                                                    <option value="{{$item}}">{{$item}}</option>
+                                                    <option value="{{$key}}">{{$item}}</option>
                                                 @empty
                                                 @endforelse
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group fill">
+                                            <label for="exampleInputEmail1">Total Pembayaran</label>
+                                            <input type="text" disabled class="form-control" id="totalPembayaran">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group fill">
+                                            <label for="exampleInputEmail1">Upload Bukti Transfer</label>
+                                            <input type="file" class="form-control " name="bukti_transfer">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="hidden" name="code_pin" id="valuePin">
+{{--                                        <input type="hidden" name="code_pin" id="valuePin">--}}
                                         <input type="hidden" name="id" value="{{$id}}">
-                                        <input type="hidden" name="payment" value="{{$data->price}}">
-                                        <button type="button" id="disabled" class="btn  btn-primary" data-toggle="modal" data-target="#exampleModalLive">
+{{--                                        <input type="hidden" name="payment" value="{{$data->price}}">--}}
+{{--                                        <button type="button" id="disabled" class="btn  btn-primary" data-toggle="modal" data-target="#exampleModalLive">--}}
+{{--                                            <i class="feather mr-2 feather icon-save"></i>Submit</button>--}}
+                                        <button type="submit" id="disabled" class="btn  btn-primary payNowClick">
                                             <i class="feather mr-2 feather icon-save"></i>Submit</button>
                                         <a href="{{route('home')}}">
                                             <button type="button" class="btn  btn-danger">
@@ -123,7 +160,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn  btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn  btn-primary payNowClick">Save changes</button>
+                    <button type="button" class="btn  btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -153,10 +190,29 @@
             return prefix === undefined ? rupiah : rupiah ? `Rp. ${rupiah}` : "";
         }
 
+        function totalPembayaran(angka, prefix){
+            var number_string = angka.toString().replace(/[^,\d]/g, ''),
+                split   	    = number_string.split(','),
+                sisa     		= split[0].length % 3,
+                rupiah     		= split[0].substr(0, sisa),
+                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+            if(ribuan){
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
+            return prefix === undefined ? rupiah : rupiah ? `Rp. ${rupiah}` : "";
+        }
 
         $(document).ready( () => {
+            $('.lamaSewa').on('change', function() {
+                var bulan = $(this).val();
+                var total = {{(int)$data->price}} * bulan
+                $('#totalPembayaran').val(`Rp. ${totalPembayaran(total)}`)
+            })
+
             $('.payNowClick').on('click', (e) => {
-                $('#valuePin').val($('#code_pin').val())
+                // $('#valuePin').val($('#code_pin').val())
                 e.preventDefault();
                 $.ajaxSetup({
                     headers: {

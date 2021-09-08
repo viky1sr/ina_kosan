@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function virtual_acc() {
         return $this->hasOne(VirtualAccount::class,'id_users','id');
     }
+
+    public function vendor(){
+        return $this->hasOne(ActivationVendor::class,'id_users','id');
+    }
 }

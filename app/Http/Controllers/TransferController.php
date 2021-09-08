@@ -103,7 +103,7 @@ class TransferController extends Controller
             $nominal = str_replace($search,"",$req['nominal']);
 
             $input = [
-                'user_id' => \Auth::user()->id,
+                'id_users' => \Auth::user()->id,
                 'nominal' => $nominal,
                 'bukti_transfer' => $file->getFileInfo()->getFilename()
             ];

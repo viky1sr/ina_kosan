@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('qweasd123'),
                 'email_verified_at' => Carbon::now()
             ]);
-        $boss->assignRole('admin');
+        $boss->assignRole('vendor');
 
         $member = User::firstOrCreate(
             [

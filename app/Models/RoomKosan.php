@@ -20,7 +20,8 @@ class RoomKosan extends Model
         'price',
         'location',
         'description',
-        'map'
+        'map',
+        'id_pemilik'
     ];
 
     public function file() {
@@ -36,5 +37,10 @@ class RoomKosan extends Model
     public function is_type() {
         return $this->hasOne(MasterType::class,'id','type')
             ->select('id','name');
+    }
+
+    public function pemilik(){
+        return $this->hasOne(User::class,'id','id_pemilik')
+            ->select('id','name as name_vendor');
     }
 }
