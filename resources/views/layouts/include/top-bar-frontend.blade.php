@@ -32,7 +32,7 @@
                     <li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span></a></li>
                     <li><a href="#" class="si-pinterest"><span class="ts-icon"><i class="icon-pinterest"></i></span><span class="ts-text">Pinterest</span></a></li>
                     <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-                    <li><a href="tel:+1.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+62.896.9455.1719</span></a></li>
+                    <li><a href="tel:+6289694551719" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+62.896.9455.1719</span></a></li>
 {{--                    <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@canvas.com</span></a></li>--}}
                 </ul><!-- #top-social end -->
 
