@@ -99,7 +99,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group fill">
-                                            <label for="exampleInputEmail1">Reason</label>
+                                            <label for="exampleInputEmail1">Status</label>
                                             <select name="status" class="form-control select2">
                                                 <option value="">---</option>
                                                 <option value="1">Success</option>
