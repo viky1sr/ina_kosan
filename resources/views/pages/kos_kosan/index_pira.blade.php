@@ -51,10 +51,11 @@
                             <th>Location</th>
                             <th>Image</th>
                             @if(Auth::user()->status == 1)
-                                @role('member')
-                                <th>Pay Now</th>
-                                @endrole
-                                <th>Action</th>
+                                @if(Auth::user()->hasRole('member'))
+                                    <th>Pay Now</th>
+                                @else
+                                    <th>Action</th>
+                                @endif
                             @endif
                         </tr>
                         </thead>
