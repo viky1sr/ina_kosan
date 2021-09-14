@@ -52,7 +52,7 @@
                             <th>Image</th>
                             @if(Auth::user()->status == 1)
                                @if(Auth::user()->hasRole('member'))
-                                <th>Pay Now</th>
+                                <th>Sewa</th>
                                 @else
                                 <th>Action</th>
                                    @endif
@@ -134,7 +134,7 @@
                     },
                         @if(Auth::user()->status == 1)
                     {data: 'id', name: 'id' , searchable: false , orderable: false ,render : function(data, type , row) {
-                            return '@if(Auth::user()->hasRole("member"))<a href="{{url('kos-kosan/pay-now')}}/'+row.id+'" title="pay" > <button ><i class="fas mr-2 fa-money-bill-wave text-info"></i> Pay Now</button> </a>@endif' +
+                            return '@if(Auth::user()->hasRole("member"))<a href="{{url('kos-kosan/pay-now')}}/'+row.id+'" title="pay" > <button ><i class="fas mr-2 fa-money-bill-wave text-info"></i> Sewa</button> </a>@endif' +
                                 '@if(Auth::user()->hasRole("admin") || Auth::user()->hasRole('vendor'))<a href="{{url('kos-kosan/edit')}}/'+row.id+'" title="update" > <button ><i class="fas mr-2 fa-pencil text-info"></i>Edit</button> </a>' +
                                 '<a href="#" onClick="deleteCat('+row.id+')" title="delete" ><button><i class="feather mr-2 feather icon-trash-2"></i></button></a> @endif'
                         }

@@ -65,7 +65,7 @@
                                                 <i class="">Rp. </i>{{rupiah($item->price)}}
                                             </div>
                                             <small><em>Harga per bulan</em></small><br>
-                                            <a href="{{route('kos-kosan.pay-now-store',$item->id)}}"class="button button-rounded mt-4 mx-0">Pesan</a>
+                                            <a href="{{route('kos-kosan.pay-now-store',$item->id)}}"class="button button-rounded mt-4 mx-0">Sewa</a>
                                         </div>
                                     </div>
                                 </div>
