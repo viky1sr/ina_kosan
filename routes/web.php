@@ -83,6 +83,7 @@ Route::group(['prefix' => 'my-kosan', 'as' => 'my-kosan.' ], function() {
     Route::get('/datatable','MyKosanController@dataTable')->name('datatable');
     Route::get('/pay/{id}','MyKosanController@edit')->name('edit');
     Route::post('/pay/{id}','MyKosanController@update')->name('update');
+    Route::post('/pay-now/{id}','MyKosanController@payKosKosan')->name('pay-now');
 });
 
 Route::group(['prefix' => 'bukti-trasnfer','as' => 'bukti-trasnfer.'], function() {

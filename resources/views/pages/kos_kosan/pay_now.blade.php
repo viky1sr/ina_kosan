@@ -111,12 +111,12 @@
                                             <input type="text" disabled class="form-control" id="totalPembayaran">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group fill">
-                                            <label for="exampleInputEmail1">Upload Bukti Transfer</label>
-                                            <input type="file" class="form-control " name="bukti_transfer">
-                                        </div>
-                                    </div>
+{{--                                    <div class="col-md-6">--}}
+{{--                                        <div class="form-group fill">--}}
+{{--                                            <label for="exampleInputEmail1">Upload Bukti Transfer</label>--}}
+{{--                                            <input type="file" class="form-control " name="bukti_transfer">--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">

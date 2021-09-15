@@ -87,6 +87,32 @@
             </div>
         </div>
     </div>
+    <div id="modalBuktiTf" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">Upload Bukti Transfer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form id="buktiFrom" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }} {{ method_field('POST') }}
+                        <div class="row">
+                            <div class="form-group fill">
+                                <label for="exampleInputEmail1">Upload Bukti Transfer</label>
+                                <input type="hidden" class="form-control " name="id_kontrak_sewa" id="id">
+                                <input type="file" class="form-control" id="buktitf" name="bukti_transfer">
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="clickBtnTF" class="btn  btn-primary">Save changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('script-page')
@@ -139,6 +165,7 @@
                         }},
                     {data : 'kosan.location' , name: 'kosan.location'},
                     {data : 'id' , name: 'id' , searchable: false, orderable: false, render: function (data, type, row) {
+                        if(row.bukti_tf != null) {
                             return ' <div class="thumbnail mb-4">\n' +
                                 '                    <div class="thumb">\n' +
                                 '                        <a href="'+row.image+'" data-lightbox="1" data-title="My caption 1">\n' +
@@ -146,6 +173,13 @@
                                 '                        </a>\n' +
                                 '                    </div>\n' +
                                 '                </div>'
+                        } else {
+                            @if(Auth::user()->hasRole('member'))
+                                return '<a onclick="uploadTf('+row.id+')" class="text-warning" ><i class="feather mr-2 feather icon-feather"></i>Upload Bukti Transfer</a>';
+                            @else
+                                return '<p class="text-danger"></i>Belum di upload</p>'
+                            @endif
+                        }
                         }
                     },
                     {data : 'id' , name: 'id' , searchable: false, orderable: false, render: function (data, type, row) {
@@ -160,11 +194,15 @@
                     },
                         @if(!Auth::user()->hasRole('member'))
                     {data:'id',render: function (data, type, row) {
-                        if(row.status != 1) {
-                            return '<p class="text-success"><i class="feather mr-2 feather icon-thumbs-up"></i> Done Check</p>'
-                        } else {
-                            return '<a onclick="updateSatus('+row.id+')" class="text-warning" ><i class="feather mr-2 feather icon-feather"></i>Check Now</a>';
-                        }
+                            if(row.bukti_tf != null) {
+                                if(row.status != 1) {
+                                    return '<p class="text-success"><i class="feather mr-2 feather icon-thumbs-up"></i> Done Check</p>'
+                                } else {
+                                    return '<a onclick="updateSatus('+row.id+')" class="text-warning" ><i class="feather mr-2 feather icon-feather"></i>Check Now</a>';
+                                }
+                            } else {
+                                return '<p class="text-danger"><i class="feather mr-2 feather icon-thumbs-up"></i>Belum di upload</p>'
+                            }
                     }
                     }
                         @endif
@@ -172,11 +210,51 @@
             });
         });
 
+        function uploadTf(id) {
+            $('#modalBuktiTf').modal('show')
+            var idKosan = id;
+            var url = '{{url('/my-kosan')}}' + '/pay-now/' + idKosan
+            $('#id').val(idKosan)
+            $(document).ready( () => {
+                $('#clickBtnTF').on('click', (e) => {
+                    e.preventDefault();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        // data: $(this).find('input,select,textarea').serialize(),
+                        data: new FormData($('#buktiFrom')[0]),
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: (data) => {
+                            if(data.status === "ok"){
+                                $('#modalBuktiTf').modal('hide')
+                                $('#buktitf').val()
+                                toastr["success"](data.messages);
+                                oTable.ajax.reload(false)
+                            }
+                        },
+                        error: (data) => {
+                            var data = data.responseJSON;
+                            if(data.status == "fail"){
+                                toastr["error"](data.messages);
+                            }
+                        }
+                    });
+                });
+            })
+        }
+
         function updateSatus(id) {
             $('#exampleModalCenter').modal('show')
-            var idKosan = id;
-            var url = '{{url('/my-kosan')}}' + '/' + idKosan
-            $('#id').val(idKosan)
+            var idSewa = id;
+            var url = '{{url('/my-kosan')}}' + '/' + idSewa
+            $('#id').val(idSewa)
             $(document).ready( () => {
                 $('#clickBtn').on('click', (e) => {
                     e.preventDefault();

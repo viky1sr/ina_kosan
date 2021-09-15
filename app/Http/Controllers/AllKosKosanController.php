@@ -295,7 +295,6 @@ class AllKosKosanController extends Controller
         $validator = Validator::make($req,[
             'mulai_sewa' => 'required',
             'lama_sewa' => 'required',
-            'bukti_transfer' => 'required|mimes:jpg,jpeg,png,jfif|max:10000'
         ],$msg);
 
         if($validator->fails()) {
@@ -326,6 +325,20 @@ class AllKosKosanController extends Controller
             ];
             BuktiTransfer::create($inputTf);
 
+            return response()->json([
+                'status' => 'ok',
+                'messages' => 'Success pembayaran sewa kosa kosan.',
+                'route' => route('my-kosan.index')
+            ],200);
+        } else {
+            $input = [
+                'id_users' => Auth::user()->id,
+                'id_room_kosans' => $req['id'],
+                'status' => 1,
+                'mulai_sewa' => $req['mulai_sewa'],
+                'lama_sewa' => $req['lama_sewa'],
+            ];
+            $success = KontrakSewa::firstOrCreate($input);
             return response()->json([
                 'status' => 'ok',
                 'messages' => 'Success pembayaran sewa kosa kosan.',

@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BuktiTransfer;
 use App\Models\KontrakSewa;
+use App\Models\MasterLamaSewa;
+use App\Models\RoomKosan;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MyKosanController extends Controller
 {
@@ -62,9 +67,13 @@ class MyKosanController extends Controller
         }
         return datatables($data)
             ->addColumn('image', function($q){
-                $val = $q->bukti_tf->bukti_transfer;
-                $val = asset('uploads/file_transfer') . '/' . $val;
-                return $val;
+                if(isset($q->bukti_tf)) {
+                    $val = $q->bukti_tf->bukti_transfer;
+                    $val = asset('uploads/file_transfer') . '/' . $val;
+                    return $val;
+                } else {
+                    return null;
+                }
             })
             ->addIndexColumn(['image'])
             ->make(true);
@@ -134,5 +143,51 @@ class MyKosanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function payKosKosan(Request $request ,$id){
+        $req = $request->all();
+
+        $msg = [
+            'bukti_transfer.required' => 'Silakan upload bukti trasnfer.',
+            'bukti_transfer.max' => 'Max File 10mb.',
+        ];
+        $validator = Validator::make($req,[
+            'bukti_transfer' => 'required|mimes:jpg,jpeg,png,jfif|max:10000'
+        ],$msg);
+
+        if($validator->fails()) {
+            return response()->json([
+                'status' => 'fail',
+                'messages' => $validator->errors()->first()
+            ],422);
+        }
+
+        if ($request->hasFile('bukti_transfer')) {
+            $file = $request->file('bukti_transfer');
+            $file = $this->uploadBuktiTransfer($file);
+
+            $inputTf = [
+                'id_users' => Auth::user()->id,
+                'id_kontrak_sewa' => $req['id_kontrak_sewa'],
+                'nominal' => 0,
+                'bukti_transfer' => $file->getFileInfo()->getFilename()
+            ];
+            BuktiTransfer::create($inputTf);
+
+            return response()->json([
+                'status' => 'ok',
+                'messages' => 'Success pembayaran sewa kosa kosan.',
+                'route' => route('my-kosan.index')
+            ],200);
+        }
+    }
+
+    public function uploadBuktiTransfer(UploadedFile $file)
+    {
+        $destinationPath = public_path() . '/uploads/file_transfer/';
+        $extension = $file->getClientOriginalExtension() ?: 'png';
+        $fileName = $file->getClientOriginalName();
+        return $file->move($destinationPath, $fileName);
     }
 }
